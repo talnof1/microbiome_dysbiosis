@@ -102,7 +102,7 @@ def clean(meta,ibd,name):
     otu["Unnamed: 0"] = otu["Unnamed: 0"].str.split(';', expand=True)[4] + '_' + otu["Unnamed: 0"].str.split(';', expand=True)[5]
     otu = otu.groupby(["Unnamed: 0"]).sum()
     try:
-        otu.drop('f__g__', inplace=True)
+        otu.drop('f___g__', inplace=True)
     except Exception:
         print("no g__, f__")
     otu = otu /otu.sum(axis = 0)
@@ -116,7 +116,7 @@ def clean(meta,ibd,name):
     otu.loc[:, "DiseaseState"] = otu.loc[:, "DiseaseState"].map(
         {"ASD": "D", "nonCDI": "H", "nonIBD": "H", "CD": "D", "UC": "D", "CDI": "D", "H": "H", "postFMT_CDI": "H",
          "ASD": "D", 'HIV': "D", 'EDD': "D", "CRC": 'D', 'OB': "D", 'PAR': "D", "OW": "D", "CIRR": "D", "MHE": "D",
-         "nonCRC": "H", "RA": "D", "T1D": "D", "CRC": "D"})
+         "nonCRC": "H", "RA": "D", "T1D": "D", "PSA": "H"})
     otu["From"] = name
     return otu
 
@@ -134,7 +134,7 @@ data_americans = pd.read_csv(start + "feature_table_gtdb.tsv", sep='\t')
 data_americans.drop('ID',inplace=True, axis=1)
 data_americans["taxon"] = data_americans['taxon'].str.split(';', expand=True)[4] + '_' + data_americans['taxon'].str.split(';', expand=True)[5]
 data_americans = data_americans.groupby(['taxon']).sum()
-data_americans.drop(('f__g__'), inplace=True)
+data_americans.drop(('f___g__'), inplace=True)
 data_americans = data_americans/data_americans.sum(axis=0)
 data_americans.fillna(0,inplace=True)
 data_americans = data_americans.T
