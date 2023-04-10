@@ -99,10 +99,10 @@ names =  ["huttenhower", "gevers", "youngster", "schubert", "asd", "vincent" , "
 def clean(meta,ibd,name):
     
     otu = ibd.copy()
-    otu["Unnamed: 0"] = otu["Unnamed: 0"].str.split(';', expand=True)[4] + '_' + otu["Unnamed: 0"].str.split(';', expand=True)[5]
+    otu["Unnamed: 0"] = otu["Unnamed: 0"].str.split(';', expand=True)[4] # + '_' + otu["Unnamed: 0"].str.split(';', expand=True)[5]
     otu = otu.groupby(["Unnamed: 0"]).sum()
     try:
-        otu.drop('f___g__', inplace=True)
+        otu.drop('f__', inplace=True)
     except Exception:
         print("no g__, f__")
     otu = otu /otu.sum(axis = 0)
@@ -126,16 +126,16 @@ for ibd, meta, name in zip(all_ibds, all_metas, names):
 finish_data = pd.concat(fixed)
 finish_data.fillna(0,inplace=True)
 finish_data.reset_index(drop=True, inplace=True)    
-finish_data.to_csv("cleaned_microbiomeHD_versionA")
+finish_data.to_csv("cleaned_microbiomeHD_versionA_f")
 
 # #american clean
 start = "C:/Users/talno/microbiom_project/american_gut/"
 data_americans = pd.read_csv(start + "feature_table_gtdb.tsv", sep='\t')
 data_americans.drop('ID',inplace=True, axis=1)
-data_americans["taxon"] = data_americans['taxon'].str.split(';', expand=True)[4] + '_' + data_americans['taxon'].str.split(';', expand=True)[5]
+data_americans["taxon"] = data_americans['taxon'].str.split(';', expand=True)[4] #+ '_' + data_americans['taxon'].str.split(';', expand=True)[5]
 data_americans = data_americans.groupby(['taxon']).sum()
-data_americans.drop(('f___g__'), inplace=True)
+data_americans.drop(('f__'), inplace=True)
 data_americans = data_americans/data_americans.sum(axis=0)
 data_americans.fillna(0,inplace=True)
 data_americans = data_americans.T
-data_americans.to_csv("cleaned_Americans_versionA")
+data_americans.to_csv("cleaned_Americans_versionA_f")
