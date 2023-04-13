@@ -4,6 +4,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
+
+
 # load all data
 meta_huttenhower = pd.read_csv("C:/Users/talno/microbiom_project/ibd_huttenhower_results/ibd_huttenhower.metadata.txt",sep='\t')
 ibd_huttenhower = pd.read_csv("C:/Users/talno/microbiom_project/ibd_huttenhower_results/RDP/ibd_huttenhower.otu_table.100.denovo.rdp_assigned",sep='\t')
